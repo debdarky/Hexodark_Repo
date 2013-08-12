@@ -163,8 +163,8 @@ mv plugins rutorrent/
 
 cd $wwwdir/rutorrent/conf
 rm -r -f plugins.ini config.php
-wget https://raw.github.com/narugawa/narugawa-repo/master/files/plugins.ini
-wget https://raw.github.com/narugawa/narugawa-repo/master/files/config.php
+wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/files/plugins.ini
+wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/files/config.php
 perl -e "s/darky/$user/g;" -pi.bak $(find $wwwdir/rutorrent/conf -type f)
 
 cd $wwwdir/rutorrent/plugins
@@ -190,7 +190,7 @@ chmod -R 755 $wwwdir/rutorrent
 
 
 cd /$homedir/$user
-wget https://raw.github.com/narugawa/narugawa-repo/master/files/.rtorrent.rc
+wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/files/.rtorrent.rc
 perl -e "s/darky/$user/g;" -pi.bak $(find $homedir/$user -type f)
 chown -R $user:$user /$homedir/$user/.rtorrent.rc
 
@@ -209,7 +209,7 @@ echo SCGIMount /RPC2 127.0.0.1:5000 >> $apachedir/apache2.conf
 
 cd $apachedir/sites-available
 rm -r -f default
-wget https://raw.github.com/narugawa/narugawa-repo/master/files/default
+wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/files/default
 
 
 a2enmod scgi && /etc/init.d/apache2 restart
