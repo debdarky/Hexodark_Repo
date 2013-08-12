@@ -209,14 +209,14 @@ echo SCGIMount /RPC2 127.0.0.1:5000 >> $apachedir/apache2.conf
 
 #Configuration du certificat ssl
 openssl req -new -x509 -days 3658 -nodes -newkey rsa:2048 -out /etc/apache2/apache.pem -keyout /etc/apache2/apache.pem<<EOF
-na
-na
-na
-na
-na LTD
-votresite.com
-contact@votremail.com
-ttt
+RU
+Russia
+Moskva
+wrty
+wrty LTD
+wrty.com
+contact@wrty.com
+EOF
 
 chmod 600 $apachedir/apache.pem
 
@@ -224,10 +224,11 @@ chmod 600 $apachedir/apache.pem
 
 cd $apachedir/sites-available
 rm -r -f default
+wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/files/default
 wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/files/default-ssl
 
 
-a2enmod ssl && a2enmod scgi && /etc/init.d/apache2 restart
+a2ensite default-ssl && a2enmod ssl && a2enmod scgi && /etc/init.d/apache2 restart
 clear
 
 # Demarrage de rtorrent
