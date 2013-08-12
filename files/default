@@ -40,7 +40,7 @@
  
     <Location /rutorrent>
         AuthType Digest
-        AuthName "gods"
+        AuthName "rutorrent"
         AuthDigestDomain /var/www/rutorrent/ http://127.0.0.1/rutorrent
  
         AuthDigestProvider file
