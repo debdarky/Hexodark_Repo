@@ -1,5 +1,5 @@
 #!/bin/bash
-  
+  exec 2>/ /root/script.log
   clear
  
     if [ $(id -u) -ne 0 ]
