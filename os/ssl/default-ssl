@@ -44,7 +44,7 @@
         AuthDigestDomain /var/www/rutorrent/ http://127.0.0.1/rutorrent
  
         AuthDigestProvider file
-        AuthUserFile /etc/apache2/passwords
+        AuthUserFile /etc/apache2/htpasswd
         Require valid-user
         SetEnv R_ENV "/var/www/rutorrent"
     </Location>
@@ -99,7 +99,7 @@
         AuthDigestDomain /var/www/rutorrent/ http://127.0.0.1/rutorrent
  
         AuthDigestProvider file
-        AuthUserFile /etc/apache2/passwords
+        AuthUserFile /etc/apache2/htpasswd
         Require valid-user
         SetEnv R_ENV "/var/www/rutorrent"
      </Location>
