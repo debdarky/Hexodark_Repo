@@ -21,7 +21,7 @@
     # creation du mot de passe pour cet utilisateur
     echo "${user}:${pwd}" | chpasswd
 
- # DÃƒÂ©tÃƒÂ©ction du gestionnaire de paquet Ãƒ  utiliser (aptitude en prioritÃƒÂ©)
+ # gestionnaire de paquet
 if [ "`dpkg --status aptitude | grep Status:`" == "Status: install ok installed" ]
 then
         packetg="aptitude"
@@ -31,16 +31,6 @@ fi
 
 ip=$(ip addr | grep eth0 | grep inet | awk '{print $2}' | cut -d/ -f1)
 
-##Log de l'instalation
-exec 2>/log
-
-# Ajoute des dÃƒÂ©pots non-free
-echo "deb http://ftp2.fr.debian.org/debian/ squeeze main non-free
-deb-src http://ftp2.fr.debian.org/debian/ squeeze main non-free" >> /etc/apt/sources.list
-
-# Installation des paquets vitaux
-$packetg update
-$packetg install -y  apache2 apache2-utils autoconf build-essential ca-certificates comerr-dev libapache2-mod-php5 libcloog-ppl-dev libcppunit-dev libcurl3 libcurl4-openssl-dev libncurses5-dev ncurses-base ncurses-term libterm-readline-gnu-perl libsigc++-2.0-dev libssl-dev libtool libxml2-dev ntp openssl patch libperl-dev php5 php5-cli php5-dev php5-fpm php5-curl php5-geoip php5-mcrypt php5-xmlrpc pkg-config python-scgi dtach ssl-cert subversion unrar zlib1g-dev pkg-config unzip htop irssi curl cfv rar zip ffmpeg mediainfo git screen perl libapache2-mod-scgi
 if [ -z $homedir ]
 then
         homedir="/home"
@@ -61,6 +51,17 @@ if [ -z $initd ]
 then
         initd="/etc/init.d"
 fi
+
+##Log de l'instalation
+exec 2>/$homedir/$user/log
+
+# Ajoute des depots non-free
+echo "deb http://ftp2.fr.debian.org/debian/ squeeze main non-free
+deb-src http://ftp2.fr.debian.org/debian/ squeeze main non-free" >> /etc/apt/sources.list
+
+# Installation des paquets vitaux
+$packetg update
+$packetg install -y  apache2 apache2-utils autoconf build-essential ca-certificates comerr-dev libapache2-mod-php5 libcloog-ppl-dev libcppunit-dev libcurl3 libcurl4-openssl-dev libncurses5-dev ncurses-base ncurses-term libterm-readline-gnu-perl libsigc++-2.0-dev libssl-dev libtool libxml2-dev ntp openssl patch libperl-dev php5 php5-cli php5-dev php5-fpm php5-curl php5-geoip php5-mcrypt php5-xmlrpc pkg-config python-scgi dtach ssl-cert subversion unrar zlib1g-dev pkg-config unzip htop irssi curl cfv rar zip ffmpeg mediainfo git screen perl libapache2-mod-scgi
 
 ##  Installation XMLRPC Libtorrent Rtorrent Plowshare
  
