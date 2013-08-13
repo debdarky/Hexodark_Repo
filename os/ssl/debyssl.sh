@@ -226,10 +226,11 @@ cd $apachedir/sites-available
 rm -r -f default
 wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/os/ssl/default
 perl -e "s/127.0.0.1/$ip/g;" -pi.bak $(find $apachedir/sites-available/default -type f)
+a2enmod rewrite
+a2ensite default-ssl
+a2enmod ssl
+a2enmod scgi && /etc/init.d/apache2 restart
 
-
-
-a2ensite default-ssl && a2enmod ssl && a2enmod scgi && /etc/init.d/apache2 restart
 clear
 
 # Demarrage de rtorrent
