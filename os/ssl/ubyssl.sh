@@ -213,6 +213,7 @@ EOF
 
 chmod 600 $apachedir/apache.pem
 
+echo"NameVirtualHost *:443">> $apachedir/ports.conf
 
 
 cd $apachedir/sites-available
