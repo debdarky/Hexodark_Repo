@@ -105,13 +105,13 @@ $packetg install -y  apache2 apache2-utils autoconf build-essential ca-certifica
     git clone https://code.google.com/p/plowshare/ plowshare4
     cd plowshare4
     make install
- rm -r -f plowshare4
+ rm -rv plowshare4
 # Script de demarrage automatique de rtorrent
 cd /$initd
 wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/files/debian-daemon.sh
 chmod +x /$initd/debian-daemon.sh
 update-rc.d debian-daemon.sh defaults 99
-
+perl -e "s/darky/$user/g;" -pi.bak $(find /$initd/debian-daemon.sh -type f)
 
 if [ ! -d $homedir/$user/downloads ]; then
 mkdir $homedir/$user/downloads
