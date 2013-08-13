@@ -9,12 +9,12 @@ case $DISTRIBUTOR in
 
 ubuntu)
         echo "Installing my package"
-        wget files
+        wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/os/ssl/ubyssl.sh
         bash ubyssl.sh
         ;;
 debian)
         echo "Installing my package"
-        wget files
+        wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/os/ssl/debyssl.sh
         bash debyssl.sh
         ;;
 fedora)
