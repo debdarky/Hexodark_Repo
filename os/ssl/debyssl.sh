@@ -1,5 +1,5 @@
 #!/bin/bash
-  exec 2>/ /root/script.log
+
   clear
  
     if [ $(id -u) -ne 0 ]
@@ -31,6 +31,9 @@ fi
 
 ip=$(ip addr | grep eth0 | grep inet | awk '{print $2}' | cut -d/ -f1)
 
+##Log de l'instalation
+exec 2>/log
+
 # Ajoute des dÃƒÂ©pots non-free
 echo "deb http://ftp2.fr.debian.org/debian/ squeeze main non-free
 deb-src http://ftp2.fr.debian.org/debian/ squeeze main non-free" >> /etc/apt/sources.list
@@ -54,18 +57,10 @@ then
         apachedir="/etc/apache2"
 fi
 
-
-
-# CrÃƒÂ©er un dossier de travail
-if [ ! -d "rutorrent" ]; then
-018
-  mkdir rutorrent
-019
+if [ -z $initd ]
+then
+        initd="/etc/init.d"
 fi
-
-## Entrez dans notre rÃƒÂ©pertoire de travail
-cd rutorrent
-
 
 ##  Installation XMLRPC Libtorrent Rtorrent Plowshare
  
@@ -111,9 +106,9 @@ cd rutorrent
     make install
  rm -r -f plowshare4
 # Script de demarrage automatique de rtorrent
-
-# plu tard
-
+wget
+chmod +x /$initd/debian-daemon.sh
+update-rc.d debian-daemon.sh defaults 99
 
 
 if [ ! -d $homedir/$user/downloads ]; then
