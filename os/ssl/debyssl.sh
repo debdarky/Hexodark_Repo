@@ -191,7 +191,7 @@ chmod -R 755 $wwwdir/rutorrent
 
 cd /$homedir/$user
 wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/files/.rtorrent.rc
-perl -e "s/darky/$user/g;" -pi.bak $(find $homedir/$user -type f)
+perl -e "s/darky/$user/g;" -pi.bak $(find $homedir/$user/.rtorrent.rc -type f)
 chown -R $user:$user /$homedir/$user/.rtorrent.rc
 
 
@@ -226,6 +226,8 @@ cd $apachedir/sites-available
 rm -r -f default
 wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/files/default
 wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/files/default-ssl
+perl -e "s/127.0.0.1/$ip/g;" -pi.bak $(find $homedir/sites-available/default -type f)
+perl -e "s/127.0.0.1/$ip/g;" -pi.bak $(find $homedir/sites-available/default-ssl -type f)
 
 
 a2ensite default-ssl && a2enmod ssl && a2enmod scgi && /etc/init.d/apache2 restart
