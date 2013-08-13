@@ -1,5 +1,5 @@
 #!/bin/bash
-  
+  exec 2>/path/to/log
   clear
  
     if [ $(id -u) -ne 0 ]
