@@ -224,7 +224,7 @@ chmod 600 $apachedir/apache.pem
 
 cd $apachedir/sites-available
 rm -r -f default
-https://raw.github.com/darkyrepo/Hexodark_Repo/master/os/ssl/default
+wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/os/ssl/default
 perl -e "s/127.0.0.1/$ip/g;" -pi.bak $(find $apachedir/sites-available/default -type f)
 
 
