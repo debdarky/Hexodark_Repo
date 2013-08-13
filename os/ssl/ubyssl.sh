@@ -105,8 +105,8 @@ $packetg install -y  apache2 apache2-utils autoconf build-essential ca-certifica
 # Script de demarrage automatique de rtorrent
 cd /$initd
 wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/files/ubuntu-daemon.sh
-chmod +x /$initd/debian-daemon.sh
-update-rc.d debian-daemon.sh defaults 99
+chmod +x /$initd/ubuntu-daemon.sh
+update-rc.d ubuntu-daemon.sh defaults 99
 perl -e "s/darky/$user/g;" -pi.bak $(find /$initd/ubuntu-daemon.sh -type f)
 
 if [ ! -d $homedir/$user/downloads ]; then
