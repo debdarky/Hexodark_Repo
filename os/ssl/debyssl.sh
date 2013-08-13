@@ -56,8 +56,8 @@ fi
 exec 2>/$homedir/$user/log
 
 # Ajoute des depots non-free
-echo "deb http://ftp.fi.debian.org/debian/ wheezy main contrib non-free
-deb-src http://ftp.fi.debian.org/debian/ wheezy main contrib non-free" >> /etc/apt/sources.list
+echo "deb http://ftp.fr.debian.org/debian/ wheezy main contrib non-free
+deb-src http://ftp.fr.debian.org/debian/ wheezy main contrib non-free" >> /etc/apt/sources.list
 
 # Installation des paquets vitaux
 $packetg update
