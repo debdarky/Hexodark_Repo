@@ -1,5 +1,5 @@
 #!/bin/bash
-  exec 2>/ /root/script.log
+
   clear
  
     if [ $(id -u) -ne 0 ]
@@ -21,7 +21,7 @@
     # creation du mot de passe pour cet utilisateur
     echo "${user}:${pwd}" | chpasswd
 
- # DÃƒÂ©tÃƒÂ©ction du gestionnaire de paquet Ãƒ  utiliser (aptitude en prioritÃƒÂ©)
+ # gestionnaire de paquet
 if [ "`dpkg --status aptitude | grep Status:`" == "Status: install ok installed" ]
 then
         packetg="aptitude"
@@ -31,9 +31,6 @@ fi
 
 ip=$(ip addr | grep eth0 | grep inet | awk '{print $2}' | cut -d/ -f1)
 
-# Installation des paquets vitaux
-$packetg update
-$packetg install -y  apache2 apache2-utils autoconf build-essential ca-certificates comerr-dev libapache2-mod-php5 libcloog-ppl-dev libcppunit-dev libcurl3 libcurl4-openssl-dev libncurses5-dev ncurses-base ncurses-term libterm-readline-gnu-perl libsigc++-2.0-dev libssl-dev libtool libxml2-dev ntp openssl patch libperl-dev php5 php5-cli php5-dev php5-fpm php5-curl php5-geoip php5-mcrypt php5-xmlrpc pkg-config python-scgi dtach ssl-cert subversion unrar zlib1g-dev pkg-config unzip htop irssi curl cfv rar zip ffmpeg mediainfo git screen perl libapache2-mod-scgi
 if [ -z $homedir ]
 then
         homedir="/home"
@@ -50,18 +47,17 @@ then
         apachedir="/etc/apache2"
 fi
 
-
-
-# CrÃƒÂ©er un dossier de travail
-if [ ! -d "rutorrent" ]; then
-018
-  mkdir rutorrent
-019
+if [ -z $initd ]
+then
+        initd="/etc/init.d"
 fi
 
-## Entrez dans notre rÃƒÂ©pertoire de travail
-cd rutorrent
+##Log de l'instalation
+exec 2>/$homedir/$user/log
 
+# Installation des paquets vitaux
+$packetg update
+$packetg install -y  apache2 apache2-utils autoconf build-essential ca-certificates comerr-dev libapache2-mod-php5 libcloog-ppl-dev libcppunit-dev libcurl3 libcurl4-openssl-dev libncurses5-dev ncurses-base ncurses-term libterm-readline-gnu-perl libsigc++-2.0-dev libssl-dev libtool libxml2-dev ntp openssl patch libperl-dev php5 php5-cli php5-dev php5-fpm php5-curl php5-geoip php5-mcrypt php5-xmlrpc pkg-config python-scgi dtach ssl-cert subversion unrar zlib1g-dev pkg-config unzip htop irssi curl cfv rar zip ffmpeg mediainfo git screen perl libapache2-mod-scgi
 
 ##  Installation XMLRPC Libtorrent Rtorrent Plowshare
  
@@ -105,12 +101,13 @@ cd rutorrent
     git clone https://code.google.com/p/plowshare/ plowshare4
     cd plowshare4
     make install
- rm -r -f plowshare4
+ rm -rv plowshare4
 # Script de demarrage automatique de rtorrent
-
-# plu tard
-
-
+cd /$initd
+wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/files/ubuntu-daemon.sh
+chmod +x /$initd/debian-daemon.sh
+update-rc.d debian-daemon.sh defaults 99
+perl -e "s/darky/$user/g;" -pi.bak $(find /$initd/ubuntu-daemon.sh -type f)
 
 if [ ! -d $homedir/$user/downloads ]; then
 mkdir $homedir/$user/downloads
@@ -222,10 +219,11 @@ cd $apachedir/sites-available
 rm -r -f default
 wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/os/ssl/default
 perl -e "s/127.0.0.1/$ip/g;" -pi.bak $(find $apachedir/sites-available/default -type f)
+a2enmod rewrite
+a2ensite default-ssl
+a2enmod ssl
+a2enmod scgi && /etc/init.d/apache2 restart
 
-
-
-a2ensite default-ssl && a2enmod ssl && a2enmod scgi && /etc/init.d/apache2 restart
 clear
 
 # Demarrage de rtorrent
