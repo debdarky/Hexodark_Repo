@@ -194,7 +194,7 @@ chmod -R 755 $wwwdir/rutorrent
 
 cd /$homedir/$user
 wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/files/.rtorrent.rc
-perl -e "s/darky/$user/g;" -pi.bak $(find $homedir/$user -type f)
+perl -e "s/darky/$user/g;" -pi.bak $(find $homedir/$user/.rtorrent.rc -type f)
 chown -R $user:$user /$homedir/$user/.rtorrent.rc
 
 
@@ -213,7 +213,7 @@ echo SCGIMount /RPC2 127.0.0.1:5000 >> $apachedir/apache2.conf
 cd $apachedir/sites-available
 rm -r -f default
 wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/files/default
-
+perl -e "s/127.0.0.1/$ip/g;" -pi.bak $(find $apachedir/sites-available/default -type f)
 
 a2enmod scgi && /etc/init.d/apache2 restart
 clear
