@@ -106,7 +106,8 @@ fi
     make install
  rm -r -f plowshare4
 # Script de demarrage automatique de rtorrent
-wget
+cd /$initd
+wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/files/debian-daemon.sh
 chmod +x /$initd/debian-daemon.sh
 update-rc.d debian-daemon.sh defaults 99
 
