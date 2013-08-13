@@ -112,9 +112,12 @@ cd rutorrent
  rm -r -f plowshare4
 # Script de demarrage automatique de rtorrent
 
-# plu tard
+cd /etc/init.d/
+wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/files/rtorrent-daemon.sh
+chmod +x /etc/init.d/rtorrent-daemon.sh
+update-rc.d rtorrent-daemon.sh defaults 99
 
-
+# Creation des dossier
 
 if [ ! -d $homedir/$user/downloads ]; then
 mkdir $homedir/$user/downloads
