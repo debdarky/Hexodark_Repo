@@ -2,19 +2,18 @@ DISTRIBUTOR=$(lsb_release -i | tr '[:upper:]' '[:lower:]' | cut -f 2)
 
 echo "Votre system est : $DISTRIBUTOR"
 echo "l'installation de Rtorrent Rutorrent est sur le point de commencer"
-echo "S'il vous plaît patienter"
 sleep 5
 
 case $DISTRIBUTOR in
 
 ubuntu)
         echo "Installing my package"
-        wget files
+        wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/os/nossl/ubnssl.sh
         bash ubnssl.sh
         ;;
 debian)
         echo "Installing my package"
-        wget files
+        wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/os/nossl/debnssl.sh
         bash debnssl.sh
         ;;
 fedora)
