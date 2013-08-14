@@ -2,7 +2,7 @@ DISTRIBUTOR=$(lsb_release -i | tr '[:upper:]' '[:lower:]' | cut -f 2)
 
 echo "Votre system est : $DISTRIBUTOR"
 echo "l'installation de Rtorrent Rutorrent est sur le point de commencer"
-sleep 5
+sleep 6
 
 case $DISTRIBUTOR in
 
