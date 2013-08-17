@@ -11,7 +11,7 @@
 #!/bin/sh -e
 # Start/Stop rtorrent sous forme de daemon.
 
-NAME=debian-daemon.sh
+NAME=rtorrent
 SCRIPTNAME=/etc/init.d/$NAME
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
