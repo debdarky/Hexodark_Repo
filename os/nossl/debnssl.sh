@@ -67,7 +67,7 @@ $packetg install -y  apache2 apache2-utils autoconf build-essential ca-certifica
  
     # XMLRPC
  
-    svn checkout http://xmlrpc-c.svn.sourceforge.net/svnroot/xmlrpc-c/stable xmlrpc-c
+   svn checkout http://svn.code.sf.net/p/xmlrpc-c/code/stable xmlrpc-c
     cd xmlrpc-c
     ./configure --prefix=/usr --enable-libxml2-backend --disable-libwww-client --disable-wininet-client --disable-abyss-server --disable-cgi-server
     make
