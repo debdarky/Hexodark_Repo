@@ -227,14 +227,12 @@ echo "${user}:rutorrent:"$(printf "${user}:rutorrent:${pwd}" | md5sum | awk '{pr
 cd $wwwdir/
 
 svn checkout http://rutorrent.googlecode.com/svn/trunk/rutorrent
-
 svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins
-
-rm -r -f rutorrent/plugins
+rm -r rutorrent/plugins
 mv plugins rutorrent/
 
 cd $wwwdir/rutorrent/conf
-rm -r -f plugins.ini config.php
+
 #-----Fichier Configuration Config.php---------------
 #----------------------------------------------------
 cat > /$wwwdir/rutorrent/conf/config.php << EOF 
