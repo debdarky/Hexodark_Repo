@@ -225,7 +225,7 @@ wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/os/ssl/default
 perl -e "s/127.0.0.1/$ip/g;" -pi.bak $(find $apachedir/sites-available/default -type f)
 a2ensite default-ssl
 a2enmod ssl
-a2enmod scgi && /etc/init.d/apache2 restart
+a2enmod scgi
 
 #instalation de cakebox
 cd /$wwwdir/rutorrent
@@ -251,6 +251,7 @@ cd /$wwwdir/rutorrent/plugins/linkcakebox/
 rm -r -f conf.php
 wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/box/conf.php
 
+/etc/init.d/apache2 restart
 clear
 
 # Demarrage de rtorrent
