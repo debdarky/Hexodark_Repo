@@ -102,15 +102,17 @@ $packetg install -y  apache2 apache2-utils autoconf build-essential ca-certifica
  
 # Plowshare
  
+ cd $homedir/
+   
     git clone https://code.google.com/p/plowshare/ plowshare4
     cd plowshare4
     make install
- rm -rv plowshare4
-
+    
 #Script de demarrage automatique de rtorrent
 #--------------------debut de rtorrent deamon---------
 #-----------------------------------------------------
-cat > /$initd/rtorrent  << EOF ### BEGIN INIT INFO
+cat > /$initd/rtorrent  << EOF 
+### BEGIN INIT INFO
 # Provides: chillispot et freeradius dans le chroot
 # Required-Start: $local_fs $network
 # Required-Stop: $local_fs $remote_fs
@@ -304,7 +306,6 @@ EOF
 #------------------------------------------------------
 
 cat > $wwwdir/rutorrent/conf/plugins.ini << EOF
-
 ;; Plugins' permissions.
 ;; If flag is not found in plugin section, corresponding flag from "default" section is used.
 ;; If flag is not found in "default" section, it is assumed to be "yes".
@@ -440,6 +441,7 @@ enabled = no
 enabled = no
 [source]
 enabled = no
+
 EOF
 
 #----Fin du fichier configuration-------------
