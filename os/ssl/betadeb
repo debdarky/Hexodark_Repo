@@ -240,12 +240,16 @@ chmod +x /$wwwdir/rutorrent/cakebox/scripts/patch_update
 
 #Configuration de cakebox
 
+cd  /$wwwdir/rutorrent/cakebox/
+wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/box/config.php
 mkdir /$wwwdir/users
 ln -s /home/$user/downloads /var/www/users/$user
 chmod -R 777 /$wwwdir/users/$user
 cd /$wwwdir/rutorrent/plugins
 git clone git://github.com/Magicalex/rutorrent-linkcakebox.git linkcakebox
 chown -R www-data:www-data linkcakebox/
+cd /$wwwdir/rutorrent/plugins/linkcakebox/
+wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/box/conf.php
 
 clear
 
