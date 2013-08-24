@@ -448,11 +448,13 @@ EOF
 
 
 # On instal Filemanager et  MediaStream
+
 cd $wwwdir/rutorrent/plugins
 svn co http://svn.rutorrent.org/svn/filemanager/trunk/mediastream
 svn co http://svn.rutorrent.org/svn/filemanager/trunk/filemanager
 mkdir -p $wwwdir/stream/
 ln -s $wwwdir/rutorrent/plugins/mediastream/view.php $wwwdir/stream/view.php
+
 chown www-data: $wwwdir/stream
 chown www-data: $wwwdir/stream/view.php
 perl -e "s/mydomain.com/$ip/g;" -pi.bak $(find /var/www/rutorrent/plugins/mediastream/conf.php -type f)
@@ -460,6 +462,7 @@ perl -e "s/mydomain.com/$ip/g;" -pi.bak $(find /var/www/rutorrent/plugins/medias
 # FILEUPLOAD
 svn co http://svn.rutorrent.org/svn/filemanager/trunk/fileupload
 chmod 775 $wwwdir/rutorrent/plugins/fileupload/scripts/upload
+
 chown -R www-data:www-data $wwwdir/rutorrent
 chmod 775 fileupload/scripts/upload
 
