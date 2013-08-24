@@ -301,7 +301,7 @@ EOF
 #----Fichier de configuration plugins.ini--------------
 #------------------------------------------------------
 
-cat > /$wwwdir/rutorrent/conf/plugins.ini << EOF
+cat > $wwwdir/rutorrent/conf/plugins.ini << EOF
 
 ;; Plugins' permissions.
 ;; If flag is not found in plugin section, corresponding flag from "default" section is used.
