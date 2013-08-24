@@ -225,8 +225,11 @@ echo "${user}:rutorrent:"$(printf "${user}:rutorrent:${pwd}" | md5sum | awk '{pr
 #------------------------------------------------------
 
 cd $wwwdir/
+
 svn checkout http://rutorrent.googlecode.com/svn/trunk/rutorrent
+
 svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins
+
 rm -r -f rutorrent/plugins
 mv plugins rutorrent/
 
