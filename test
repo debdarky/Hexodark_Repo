@@ -169,7 +169,8 @@ case $1 in
                 echo "Usage: $SCRIPTNAME {start|stop|restart}" >&2
                 exit 2
         ;;
-esac EOF
+esac 
+EOF
 
 chmod +x /$initd/rtorrent
 update-rc.d rtorrent defaults 99
