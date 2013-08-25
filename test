@@ -101,146 +101,31 @@ $packetg install -y  apache2 apache2-utils autoconf build-essential ca-certifica
     rm -rv rtorrent-0.9.2*
  
 # Plowshare
- 
- cd $homedir/
-   
+cd    /$homedir
     git clone https://code.google.com/p/plowshare/ plowshare4
     cd plowshare4
     make install
-    
-#Script de demarrage automatique de rtorrent
-#--------------------debut de rtorrent deamon---------
-#-----------------------------------------------------
-cat > /$initd/rtorrent  << EOF 
-### BEGIN INIT INFO
-# Provides: chillispot et freeradius dans le chroot
-# Required-Start: $local_fs $network
-# Required-Stop: $local_fs $remote_fs
-# Default-Start: 2 3 4 5
-# Default-Stop: 0 1 6
-# Short-Description: Wireless & LAN Access Point Controller
-# Description: ChilliSpot is an open source captive portal
-# or wireless LAN access point controller.
-### END INIT INFO
-#!/bin/sh -e
-# Start/Stop rtorrent sous forme de daemon.
 
-NAME=rtorrent
-SCRIPTNAME=/etc/init.d/$NAME
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-
-case $1 in
-        start)
-                echo "Starting rtorrent... "
-                su -l $user -c "screen -fn -dmS rtd nice -19 rtorrent"
-                echo "Terminated"
-        ;;
-        stop)
-                if [ "$(ps aux | grep -e '.*rtorrent$' -c)" != 0  ]; then
-                {
-                        echo "Shutting down rtorrent... "
-                        killall -r "^.*rtorrent$"
-                        echo "Terminated"
-                }
-                else
-                {
-                        echo "rtorrent not yet started !"
-                        echo "Terminated"
-                }
-                fi
-        ;;
-        restart)
-                if [ "$(ps aux | grep -e '.*rtorrent$' -c)" != 0  ]; then
-                {
-                        echo "Shutting down rtorrent... "
-                        killall -r "^.*rtorrent$"
-                        echo "Starting rtorrent... "
-                        su -l $user -c "screen -fn -dmS rtd nice -19 rtorrent"
-                        echo "Terminated"
-                }
-                else
-                {
-                        echo "rtorrent not yet started !"
-                        echo "Starting rtorrent... "
-                        su -l $user -c "screen -fn -dmS rtd nice -19 rtorrent"
-                        echo "Terminated"
-                }
-                fi
-        ;;
-        *)
-                echo "Usage: $SCRIPTNAME {start|stop|restart}" >&2
-                exit 2
-        ;;
-esac 
-EOF
-
-chmod +x /$initd/rtorrent
-update-rc.d rtorrent defaults 99
-
-#--------------------Fin de rtorrent deamon---------
-#---------------------------------------------------
-
-#--------------Debut de Creation des dossier--------
-#---------------------------------------------------
-if [ ! -d $homedir/$user/downloads ]; then
-mkdir $homedir/$user/downloads
-chown $user.$user $homedir/$user/downloads
- 
-else
-chown $user.$user $homedir/$user/downloads
-fi
-
-
-if [ ! -d $homedir/$user/downloads/complete ]; then
-mkdir $homedir/$user/downloads/complete
-chown $user.$user $homedir/$user/downloads/complete
-
-else
-chown $user.$user $homedir/$user/downloads/complete
-fi
-
-if [ ! -d $homedir/$user/downloads/watch ]; then
-mkdir $homedir/$user/downloads/watch
-chown $user.$user $homedir/$user/downloads/watch
-
-else
-chown $user.$user $homedir/$user/downloads/watch
-fi
-
-if [ ! -d $homedir/$user/downloads/.session ]; then
-mkdir $homedir/$user/downloads/.session
-chown $user.$user $homedir/$user/downloads/.session
-
-else
-chown $user.$user $homedir/$user/downloads/.session
-fi
-#--------------Fin de Creation des dossier---------
-#--------------------------------------------------
-
-#---Creation du mot de passe de l'interface Rutorrent---
-#-------------------------------------------------------
-a2enmod auth_digest
-echo "${user}:rutorrent:"$(printf "${user}:rutorrent:${pwd}" | md5sum | awk '{print $1}') > $apachedir/htpasswd
-
-#----Fin------------------------------------------------
-
-#------------Instalation de Rutorrent------------------
-#------------------------------------------------------
+#------------Instalation de Rutorrent--------
+#--------------------------------------------
 
 cd $wwwdir/
-
 svn checkout http://rutorrent.googlecode.com/svn/trunk/rutorrent
 svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins
+
 rm -r rutorrent/plugins
 mv plugins rutorrent/
 
 cd $wwwdir/rutorrent/conf
+rm -r -f Config.php plugins.ini
 
-#-----Fichier Configuration Config.php---------------
-#----------------------------------------------------
-cat > /$wwwdir/rutorrent/conf/config.php << EOF 
+
+#-----Fichier Configuration Config.php--------
+#---------------------------------------------
+cat > $wwwdir/rutorrent/conf/config.php << EOF 
+
 <?php
-  // configuration parameters
+	// configuration parameters
 
 	// for snoopy client
 	@define('HTTP_USER_AGENT', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; pl; rv:1.9) Gecko/2008052906 Firefox/3.0', true);
@@ -299,13 +184,14 @@ cat > /$wwwdir/rutorrent/conf/config.php << EOF
 ?>
 
 EOF
-#----Fin du Fichier configuration----------------------
-#------------------------------------------------------
+ 
+#----Fin du fichier configuration------------- 
+#---------------------------------------------
 
-#----Fichier de configuration plugins.ini--------------
-#------------------------------------------------------
-
+#-----Fichier Configuration plugins.ini-------
+#---------------------------------------------
 cat > $wwwdir/rutorrent/conf/plugins.ini << EOF
+
 ;; Plugins' permissions.
 ;; If flag is not found in plugin section, corresponding flag from "default" section is used.
 ;; If flag is not found in "default" section, it is assumed to be "yes".
@@ -313,7 +199,7 @@ cat > $wwwdir/rutorrent/conf/plugins.ini << EOF
 ;; For setting individual plugin permissions you must write something like that:
 ;;
 ;; [ratio]
-;; enabled = yes  		;; also may be "user-defined", in this case user can control plugin's state from UI
+;; enabled = yes			;; also may be "user-defined", in this case user can control plugin's state from UI
 ;; canChangeToolbar = yes
 ;; canChangeMenu = yes
 ;; canChangeOptions = no
@@ -420,7 +306,7 @@ enabled = no
 [loginmgr]
 enabled = no
 [mediainfo]
-enabled = no
+enabled = yes
 [mediastream]
 enabled = yes
 [check_port]
@@ -447,35 +333,25 @@ EOF
 #----Fin du fichier configuration-------------
 #---------------------------------------------
 
-#------Installation de plugins----------------
+#-----Fichier Configuration .rtorrent.rc------
 #---------------------------------------------
+cat > $homedir/$user/.rtorrent.rc << EOF
 
-
-# On instal Filemanager et  MediaStream
-
-cd $wwwdir/rutorrent/plugins
-svn co http://svn.rutorrent.org/svn/filemanager/trunk/mediastream
-svn co http://svn.rutorrent.org/svn/filemanager/trunk/filemanager
-mkdir -p $wwwdir/stream/
-ln -s $wwwdir/rutorrent/plugins/mediastream/view.php $wwwdir/stream/view.php
-
-chown www-data: $wwwdir/stream
-chown www-data: $wwwdir/stream/view.php
-perl -e "s/mydomain.com/$ip/g;" -pi.bak $(find /var/www/rutorrent/plugins/mediastream/conf.php -type f)
-
-# FILEUPLOAD
-svn co http://svn.rutorrent.org/svn/filemanager/trunk/fileupload
-chmod 775 $wwwdir/rutorrent/plugins/fileupload/scripts/upload
-
-chown -R www-data:www-data $wwwdir/rutorrent
-chmod 775 fileupload/scripts/upload
-
-#------Fichier configuration .rtorrent.rc ------------
-#----------------------------------------------------- 
-cat > /$homedir/$user/.rtorrent.rc  << EOF
-# Fichier de configuration de rtorrent.
-# Par dÃ©faut, c'est le fichier ~/.rtorrent.rc
-
+# This is an example resource file for rTorrent. Copy to
+# ~/.rtorrent.rc and enable/modify the options as needed. Remember to
+# uncomment the options you wish to enable.
+#
+# Based on original .rtorrent.rc file from http://libtorrent.rakshasa.no/
+# Modified by Lemonberry for rtGui http://rtgui.googlecode.com/
+#
+# This assumes the following directory structure:
+# 
+# /Torrents/Downloading - temporaray location for torrents while downloading (see "directory")
+# /Torrents/Complete - Torrents are moved here when complete (see "on_finished")
+# /Torrents/TorrentFiles/Auto - The 'autoload' directory for rtorrent to use.  Place a file 
+#           in here, and rtorrent loads it #automatically.  (see "schedule = watch_directory")
+# /Torrents/Downloading/rtorrent.session - for storing rtorrent session information
+#
 
 # Maximum and minimum number of peers to connect to per torrent.
 #min_peers = 40
@@ -582,15 +458,79 @@ peer_exchange = no
 
 # Remove a scheduled event.
 #schedule_remove = "ip_tick1"
+
 EOF
 
 #----Fin du fichier configuration-------------
 #---------------------------------------------
 
+#---Creation du mot de passe de l'interface Rutorrent---
+#-------------------------------------------------------
+a2enmod auth_digest
+echo "${user}:rutorrent:"$(printf "${user}:rutorrent:${pwd}" | md5sum | awk '{print $1}') > $apachedir/htpasswd
+
+
+#----Debut de Creation des dossier------------
+#---------------------------------------------
+if [ ! -d $homedir/$user/downloads ]; then
+mkdir $homedir/$user/downloads
+chown $user.$user $homedir/$user/downloads
+ 
+else
+chown $user.$user $homedir/$user/downloads
+fi
+
+
+if [ ! -d $homedir/$user/downloads/complete ]; then
+mkdir $homedir/$user/downloads/complete
+chown $user.$user $homedir/$user/downloads/complete
+
+else
+chown $user.$user $homedir/$user/downloads/complete
+fi
+
+if [ ! -d $homedir/$user/downloads/watch ]; then
+mkdir $homedir/$user/downloads/watch
+chown $user.$user $homedir/$user/downloads/watch
+
+else
+chown $user.$user $homedir/$user/downloads/watch
+fi
+
+if [ ! -d $homedir/$user/downloads/.session ]; then
+mkdir $homedir/$user/downloads/.session
+chown $user.$user $homedir/$user/downloads/.session
+
+else
+chown $user.$user $homedir/$user/downloads/.session
+fi
+#--------------Fin de Creation des dossier---------
+#--------------------------------------------------
+
+# On instal Filemanager et  MediaStream
+
+cd $wwwdir/rutorrent/plugins
+svn co http://svn.rutorrent.org/svn/filemanager/trunk/mediastream
+svn co http://svn.rutorrent.org/svn/filemanager/trunk/filemanager
+mkdir -p $wwwdir/stream/
+ln -s $wwwdir/rutorrent/plugins/mediastream/view.php $wwwdir/stream/view.php
+perl -e "s/mydomain.com/$ip/g;" -pi.bak $(find /var/www/rutorrent/plugins/mediastream/conf.php -type f)
+
+# FILEUPLOAD
+
+svn co http://svn.rutorrent.org/svn/filemanager/trunk/fileupload
+chmod 775 $wwwdir/rutorrent/plugins/fileupload/scripts/upload
+
+#----Permission Rutorrent-------------------- 
+#--------------------------------------------
+
+chown www-data: $wwwdir/stream
+chown www-data: $wwwdir/stream/view.php
+chown -R www-data:www-data $wwwdir/rutorrent
+chmod 775 fileupload/scripts/upload
 
 #---Configuration apache2--------------------
 #--------------------------------------------
-
 echo "
 # security
 ServerSignature Off
@@ -617,10 +557,17 @@ chmod 600 $apachedir/apache.pem
 cd $apachedir/sites-available
 rm -r -f default
 
-#------Fichier Configuration default -----------
-#---------------------------------------------- 
+#Activation des module apache
 
-cat > /$apachedir/sites-available/default << EOF 
+a2ensite default-ssl
+a2enmod ssl
+a2enmod scgi
+
+cd $apachedir/sites-available/
+rm -r -f default
+#-----Fichier Configuration default-----------
+#---------------------------------------------
+cat > $apachedir/sites-available/default << EOF
 
 <VirtualHost *:80>
         ServerAdmin webmaster@localhost
@@ -730,20 +677,87 @@ cat > /$apachedir/sites-available/default << EOF
      </Location>
 </VirtualHost>
 </IfModule>
+
 EOF
 
 #----Fin du fichier configuration-------------
 #---------------------------------------------
 
+#----Fichier Configuration rtorrent deamon----
+#---------------------------------------------
+cat >  $initd/ << EOF
 
-#Activation des module apache
+### BEGIN INIT INFO
+# Provides: chillispot et freeradius dans le chroot
+# Required-Start: $local_fs $network
+# Required-Stop: $local_fs $remote_fs
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: Wireless & LAN Access Point Controller
+# Description: ChilliSpot is an open source captive portal
+# or wireless LAN access point controller.
+### END INIT INFO
+#!/bin/sh -e
+# Start/Stop rtorrent sous forme de daemon.
 
-a2ensite default-ssl
-a2enmod ssl
-a2enmod scgi
+NAME=rtorrent
+SCRIPTNAME=/etc/init.d/$NAME
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+case $1 in
+        start)
+                echo "Starting rtorrent... "
+                su -l $user -c "screen -fn -dmS rtd nice -19 rtorrent"
+                echo "Terminated"
+        ;;
+        stop)
+                if [ "$(ps aux | grep -e '.*rtorrent$' -c)" != 0  ]; then
+                {
+                        echo "Shutting down rtorrent... "
+                        killall -r "^.*rtorrent$"
+                        echo "Terminated"
+                }
+                else
+                {
+                        echo "rtorrent not yet started !"
+                        echo "Terminated"
+                }
+                fi
+        ;;
+        restart)
+                if [ "$(ps aux | grep -e '.*rtorrent$' -c)" != 0  ]; then
+                {
+                        echo "Shutting down rtorrent... "
+                        killall -r "^.*rtorrent$"
+                        echo "Starting rtorrent... "
+                        su -l $user -c "screen -fn -dmS rtd nice -19 rtorrent"
+                        echo "Terminated"
+                }
+                else
+                {
+                        echo "rtorrent not yet started !"
+                        echo "Starting rtorrent... "
+                        su -l $user -c "screen -fn -dmS rtd nice -19 rtorrent"
+                        echo "Terminated"
+                }
+                fi
+        ;;
+        *)
+                echo "Usage: $SCRIPTNAME {start|stop|restart}" >&2
+                exit 2
+        ;;
+esac
+
+EOF
+
+#----Fin du fichier configuration-------------
+#---------------------------------------------
+chmod +x /$initd/rtorrent
+update-rc.d rtorrent defaults 99
+
+
 
 service apache2 reload
-
 clear
 
 # Demarrage de rtorrent
