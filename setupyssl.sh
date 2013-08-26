@@ -13,7 +13,7 @@ ubuntu)
         ;;
 debian)
         echo "Installing my package"
-        wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/os/ssl/debyssl.sh
+        wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/os/debyssl
         bash debyssl.sh
         ;;
 fedora)
