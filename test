@@ -359,10 +359,6 @@ encryption = allow_incoming,enable_retry,prefer_plaintext
  
 # Ca, c'est nécessaire pour que rutorrent fonctionne
 scgi_port = localhost:5000
- 
-log.open_file = "rtorrent", "~/.rtorrent/rtorrent.log"
-log.add_output = "critical", "rtorrent"
-#log.add_output = "error", "rtorrent"
 " >> $homedir/$user/.rtorrent.rc
 
 #----Fin du fichier configuration-------------
@@ -589,7 +585,7 @@ echo "
 
 #----Fichier Configuration rtorrent deamon----
 #---------------------------------------------
-echo "
+
 
 ### BEGIN INIT INFO
 # Provides: chillispot et freeradius dans le chroot
@@ -603,7 +599,7 @@ echo "
 ### END INIT INFO
 #!/bin/sh -e
 # Start/Stop rtorrent sous forme de daemon.
-
+cat > /$initd/rtorrent << EOF
 NAME=rtorrent
 SCRIPTNAME=/etc/init.d/$NAME
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -652,7 +648,7 @@ case $1 in
         ;;
 esac
 
-" >> $initd/rtorrent
+EOF
 
 #----Fin du fichier configuration-------------
 #---------------------------------------------
