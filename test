@@ -585,7 +585,7 @@ echo "
 
 #----Fichier Configuration rtorrent deamon----
 #---------------------------------------------
-
+cat > $initd/rtorrent << EOF
 
 ### BEGIN INIT INFO
 # Provides: chillispot et freeradius dans le chroot
