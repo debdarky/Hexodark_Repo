@@ -122,7 +122,7 @@ rm -r -f Config.php plugins.ini
 
 #-----Fichier Configuration Config.php--------
 #---------------------------------------------
-cat > $wwwdir/rutorrent/conf/config.php << EOF 
+echo "
 
 <?php
 	// configuration parameters
@@ -183,14 +183,14 @@ cat > $wwwdir/rutorrent/conf/config.php << EOF
 
 ?>
 
-EOF
+" >> $wwwdir/rutorrent/conf/Config.php
  
 #----Fin du fichier configuration------------- 
 #---------------------------------------------
 
 #-----Fichier Configuration plugins.ini-------
 #---------------------------------------------
-cat > $wwwdir/rutorrent/conf/plugins.ini << EOF
+echo "
 
 ;; Plugins' permissions.
 ;; If flag is not found in plugin section, corresponding flag from "default" section is used.
@@ -328,14 +328,13 @@ enabled = no
 [source]
 enabled = no
 
-EOF
-
+" >> $wwwdir/rutorrent/conf/plugins.ini
 #----Fin du fichier configuration-------------
 #---------------------------------------------
 
 #-----Fichier Configuration .rtorrent.rc------
 #---------------------------------------------
-cat > $homedir/$user/.rtorrent.rc << EOF
+echo "
 
 # This is an example resource file for rTorrent. Copy to
 # ~/.rtorrent.rc and enable/modify the options as needed. Remember to
@@ -459,7 +458,7 @@ peer_exchange = no
 # Remove a scheduled event.
 #schedule_remove = "ip_tick1"
 
-EOF
+" >> $homedir/$user/.rtorrent.rc
 
 #----Fin du fichier configuration-------------
 #---------------------------------------------
@@ -567,7 +566,7 @@ cd $apachedir/sites-available/
 rm -r -f default
 #-----Fichier Configuration default-----------
 #---------------------------------------------
-cat > $apachedir/sites-available/default << EOF
+echo "
 
 <VirtualHost *:80>
         ServerAdmin webmaster@localhost
@@ -678,14 +677,14 @@ cat > $apachedir/sites-available/default << EOF
 </VirtualHost>
 </IfModule>
 
-EOF
+" >> $apachedir/sites-available/default
 
 #----Fin du fichier configuration-------------
 #---------------------------------------------
 
 #----Fichier Configuration rtorrent deamon----
 #---------------------------------------------
-cat >  $initd/ << EOF
+echo "
 
 ### BEGIN INIT INFO
 # Provides: chillispot et freeradius dans le chroot
@@ -748,7 +747,7 @@ case $1 in
         ;;
 esac
 
-EOF
+" >> $initd/rtorrent
 
 #----Fin du fichier configuration-------------
 #---------------------------------------------
