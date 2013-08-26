@@ -8,7 +8,7 @@ case $DISTRIBUTOR in
 
 ubuntu)
         echo "Installing my package"
-        wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/os/ssl/ubyssl.sh
+        wget https://raw.github.com/darkyrepo/Hexodark_Repo/master/os/ubyssl
         bash ubyssl.sh
         ;;
 debian)
