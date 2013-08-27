@@ -113,7 +113,7 @@ cd $wwwdir/
 svn checkout http://rutorrent.googlecode.com/svn/trunk/rutorrent
 svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins
 
-rm -r rutorrent/plugins
+find $REP/$wwwdir/rutorrent/plugins  -type f | xargs rm -f
 mv plugins rutorrent/
 
 find $REP/$wwwdir/rutorrent/conf/config.php plugins.ini  -type f | xargs rm -f
@@ -439,14 +439,11 @@ perl -e "s/Timeout 300/Timeout 30/g;" -pi.bak $(find $apachedir/apache2.conf -ty
 # Installation du mode SGCI d'Apache (obligatoire pour rtorrent et rutorrent)
 echo SCGIMount /RPC2 127.0.0.1:5000 >> $apachedir/apache2.conf
 
-cd $apachedir/sites-available
-rm -r -f default
+
+find $REP/$apachedir/sites-available/default  -type f | xargs rm -f
 
 #Activation des module apache
 a2enmod scgi
-
-cd $apachedir/sites-available/
-rm -r -f default
 #-----Fichier Configuration default-----------
 #---------------------------------------------
 echo "
