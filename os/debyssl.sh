@@ -113,7 +113,7 @@ cd $wwwdir/
 svn checkout http://rutorrent.googlecode.com/svn/trunk/rutorrent
 svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins
 
-find $wwwdir -depth -name plugins -type d -exec rm -rf '{}' \;
+find $wwwdir/rutorrent -depth -name plugins -type d -exec rm -rf '{}' \;
 mv plugins rutorrent/
 
 find /$wwwdir/rutorrent/conf -name config.php -exec rm -rf '{}' \;
