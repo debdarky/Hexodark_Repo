@@ -181,7 +181,7 @@ echo "
                                                 // For example, if Webserver and rtorrent users are in the same group then the value may be 0770.
 
 ?>
-" >> $wwwdir/rutorrent/conf/Config.php
+" >> $wwwdir/rutorrent/conf/config.php
  
 #----Fin du fichier configuration------------- 
 #---------------------------------------------
