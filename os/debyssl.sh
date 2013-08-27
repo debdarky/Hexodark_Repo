@@ -188,7 +188,6 @@ echo "
 #-----Fichier Configuration plugins.ini-------
 #---------------------------------------------
 echo "
-
 ;; Plugins' permissions.
 ;; If flag is not found in plugin section, corresponding flag from "default" section is used.
 ;; If flag is not found in "default" section, it is assumed to be "yes".
@@ -324,7 +323,6 @@ enabled = no
 enabled = no
 [source]
 enabled = no
-
 " >> $wwwdir/rutorrent/conf/plugins.ini
 #----Fin du fichier configuration-------------
 #---------------------------------------------
@@ -460,7 +458,6 @@ a2enmod scgi
 #-----Fichier Configuration default-----------
 #---------------------------------------------
 echo "
-
 <VirtualHost *:80>
         ServerAdmin webmaster@localhost
  
@@ -569,7 +566,6 @@ echo "
      </Location>
 </VirtualHost>
 </IfModule>
-
 " >> $apachedir/sites-available/default
 
 #----Fin du fichier configuration-------------
