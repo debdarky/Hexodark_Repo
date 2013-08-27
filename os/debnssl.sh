@@ -116,8 +116,7 @@ svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins
 rm -r rutorrent/plugins
 mv plugins rutorrent/
 
-cd $wwwdir/rutorrent/conf
-rm -r -f Config.php plugins.ini
+find $REP/$wwwdir/rutorrent/conf/config.php plugins.ini  -type f | xargs rm -f
 
 
 #-----Fichier Configuration Config.php--------
