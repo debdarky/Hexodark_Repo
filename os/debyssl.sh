@@ -147,7 +147,7 @@ echo "
         $saveUploadedTorrents = true;           // Save uploaded torrents to profile/torrents directory or not
         $overwriteUploadedTorrents = false;     // Overwrite existing uploaded torrents in profile/torrents directory or make unique name
 
-        $topDirectory = '/home/rutorrent/downloads';                    // Upper available directory. Absolute path with trail slash.
+        $topDirectory = '/home/$user/downloads';                    // Upper available directory. Absolute path with trail slash.
         $forbidUserSettings = false;
 
         $scgi_port = 5000;
@@ -181,7 +181,6 @@ echo "
                                                 // For example, if Webserver and rtorrent users are in the same group then the value may be 0770.
 
 ?>
-
 " >> $wwwdir/rutorrent/conf/Config.php
  
 #----Fin du fichier configuration------------- 
