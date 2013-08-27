@@ -113,12 +113,11 @@ cd $wwwdir/
 svn checkout http://rutorrent.googlecode.com/svn/trunk/rutorrent
 svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins
 
-rm -r rutorrent/plugins
+find $wwwdir -depth -name plugins -type d -exec rm -rf '{}' \;
 mv plugins rutorrent/
 
-cd $wwwdir/rutorrent/conf
-rm -r -f Config.php plugins.ini
-
+find /$wwwdir/rutorrent/conf -name config.php -exec rm -rf '{}' \;
+find /$wwwdir/rutorrent/conf -name plugins.ini -exec rm -rf '{}' \;
 
 #-----Fichier Configuration Config.php--------
 #---------------------------------------------
@@ -452,9 +451,8 @@ contact@wrty.com
 EOF
 
 chmod 600 $apachedir/apache.pem
-cd $apachedir/sites-available
-rm -r -f default
 
+find /$apachedir/sites-available -name default -exec rm -rf '{}' \;
 #Activation des module apache
 
 a2ensite default-ssl
