@@ -416,8 +416,6 @@ perl -e "s/mydomain.com/$ip/g;" -pi.bak $(find /var/www/rutorrent/plugins/medias
 # FILEUPLOAD
 
 svn co http://svn.rutorrent.org/svn/filemanager/trunk/fileupload
-chmod 775 $wwwdir/rutorrent/plugins/fileupload/scripts/upload
-
 #----Permission Rutorrent-------------------- 
 #--------------------------------------------
 
