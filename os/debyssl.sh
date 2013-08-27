@@ -121,7 +121,7 @@ find /$wwwdir/rutorrent/conf -name plugins.ini -exec rm -rf '{}' \;
 
 #-----Fichier Configuration Config.php--------
 #---------------------------------------------
-echo "
+echo <<EOF >> $wwwdir/rutorrent/conf/config.php
 <?php
         // configuration parameters
 
@@ -178,10 +178,9 @@ echo "
         $profileMask = 0777;                    // Mask for files and directory creation in user profiles.
                                                 // Both Webserver and rtorrent users must have read-write access to it.
                                                 // For example, if Webserver and rtorrent users are in the same group then the value may be 0770.
+                                                
+EOF
 
-?>
-" >> $wwwdir/rutorrent/conf/config.php
- 
 #----Fin du fichier configuration------------- 
 #---------------------------------------------
 
