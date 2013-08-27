@@ -451,16 +451,14 @@ contact@wrty.com
 EOF
 
 chmod 600 $apachedir/apache.pem
-
 find /$apachedir/sites-available -name default -exec rm -rf '{}' \;
+
 #Activation des module apache
 
 a2ensite default-ssl
 a2enmod ssl
 a2enmod scgi
 
-cd $apachedir/sites-available/
-rm -r -f default
 #-----Fichier Configuration default-----------
 #---------------------------------------------
 echo "
