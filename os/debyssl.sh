@@ -116,12 +116,12 @@ svn checkout http://rutorrent.googlecode.com/svn/trunk/plugins
 find $wwwdir/rutorrent -depth -name plugins -type d -exec rm -rf '{}' \;
 mv plugins rutorrent/
 
-find /$wwwdir/rutorrent/conf -name config.php -exec rm -rf '{}' \;
+
 find /$wwwdir/rutorrent/conf -name plugins.ini -exec rm -rf '{}' \;
 
 #-----Fichier Configuration Config.php--------
 #---------------------------------------------
-cat > $wwwdir/rutorrent/conf/config.php<< EOF
+echo "
 <?php
 	// configuration parameters
 
@@ -180,8 +180,7 @@ cat > $wwwdir/rutorrent/conf/config.php<< EOF
 						// For example, if Webserver and rtorrent users are in the same group then the value may be 0770.
 
 ?>
-
-EOF
+ " > /$wwwdir/rutorrent/conf/config.php
 #----Fin du fichier configuration------------- 
 #---------------------------------------------
 
