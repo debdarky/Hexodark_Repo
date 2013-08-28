@@ -180,6 +180,7 @@ cat > $wwwdir/rutorrent/conf/config.php<< EOF
 						// For example, if Webserver and rtorrent users are in the same group then the value may be 0770.
 
 ?>
+
 EOF
 #----Fin du fichier configuration------------- 
 #---------------------------------------------
