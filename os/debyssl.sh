@@ -566,8 +566,8 @@ echo "<VirtualHost *:80>
 #---------------------------------------------
 echo "### BEGIN INIT INFO
 # Provides: chillispot et freeradius dans le chroot
-# Required-Start: $local_fs $network
-# Required-Stop: $local_fs $remote_fs
+# Required-Start: \$local_fs \$network
+# Required-Stop: \$local_fs \$remote_fs
 # Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
 # Short-Description: Wireless & LAN Access Point Controller
@@ -584,7 +584,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 case \$1 in
         start)
                 echo \"Starting rtorrent... \"
-                su -l darky -c \"screen -fn -dmS rtd nice -19 rtorrent\"
+                su -l $user -c \"screen -fn -dmS rtd nice -19 rtorrent\"
                 echo \"Terminated\"
         ;;
         stop)
@@ -607,14 +607,14 @@ case \$1 in
                         echo \"Shutting down rtorrent... \"
                         killall -r \"^.*rtorrent\$\"
                         echo \"Starting rtorrent... \"
-                        su -l darky -c \"screen -fn -dmS rtd nice -19 rtorrent\"
+                        su -l $user -c \"screen -fn -dmS rtd nice -19 rtorrent\"
                         echo \"Terminated\"
                 }
                 else
                 {
                         echo \"rtorrent not yet started !\"
                         echo \"Starting rtorrent... \"
-                        su -l darky -c \"screen -fn -dmS rtd nice -19 rtorrent\"
+                        su -l $user -c \"screen -fn -dmS rtd nice -19 rtorrent\"
                         echo \"Terminated\"
                 }
                 fi
@@ -631,7 +631,7 @@ esac" > /$initd/rtorrent
 #Configuration rtorrent deamon
 chmod +x /$initd/rtorrent
 update-rc.d rtorrent defaults 99
-perl -e "s/darky/$user/g;" -pi.bak $(find /$initd/rtorrent -type f)
+
 
 
 
