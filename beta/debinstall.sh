@@ -403,7 +403,7 @@ svn co http://svn.rutorrent.org/svn/filemanager/trunk/mediastream
 svn co http://svn.rutorrent.org/svn/filemanager/trunk/filemanager
 mkdir -p $wwwdir/stream/
 ln -s $wwwdir/rutorrent/plugins/mediastream/view.php $wwwdir/stream/view.php
-perl -e "s/mydomain.com/$ip/g;" -pi.bak $(find /var/www/rutorrent/plugins/mediastream/conf.php -type f)
+sed -i.bak "s/mydomain.com/$ip/g;" /$wwwdir/rutorrent/plugins/mediastream/conf.php
 
 # FILEUPLOAD
 
@@ -422,7 +422,7 @@ echo "
 # security
 ServerSignature Off
 ServerTokens Prod" >> $apachedir/apache2.conf
-sed -i.bak "s/mydomain.com/$ip/g;" /$wwwdir/rutorrent/plugins/mediastream/conf.php
+sed -i.bak "s/Timeout 300/Timeout 30/g;" /$apachedir/apache2.conf
 
 # Installation du mode SGCI d'Apache (obligatoire pour rtorrent et rutorrent)
 echo SCGIMount /RPC2 127.0.0.1:5000 >> $apachedir/apache2.conf
