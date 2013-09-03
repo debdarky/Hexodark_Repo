@@ -118,7 +118,7 @@ mv plugins rutorrent/
 
 #-----Fichier Configuration Config.php--------
 #---------------------------------------------
-cat <<'EOF' > chemain
+cat <<'EOF' > $wwwdir/rutorrent/conf/config.php
 <?php
 	// configuration parameters
 
@@ -178,14 +178,14 @@ cat <<'EOF' > chemain
 
 ?>
 EOF
-sed -i.bak "s/@user@/$user/g;"
+sed -i.bak "s/@user@/$user/g;" /$wwwdir/rutorrent/conf/config.php
 
 #----Fin du fichier configuration------------- 
 #---------------------------------------------
 
 #-----Fichier Configuration plugins.ini-------
 #---------------------------------------------
-cat <<'EOF' > chemain
+cat <<'EOF' > /$wwwdir/rutorrent/conf/plugins.ini
 ;; Plugins' permissions.
 ;; If flag is not found in plugin section, corresponding flag from "default" section is used.
 ;; If flag is not found in "default" section, it is assumed to be "yes".
@@ -327,7 +327,7 @@ EOF
 
 #-----Fichier Configuration .rtorrent.rc------
 #---------------------------------------------
-cat <<'EOF' > chemain
+cat <<'EOF' > /$homedir/$user/.rtorrent.rc
 # Fichier de configuration de rtorrent.
  
 download_rate = 0
@@ -353,7 +353,7 @@ encryption = allow_incoming,enable_retry,prefer_plaintext
 # Ca, c'est nécessaire pour que rutorrent fonctionne
 scgi_port = localhost:5000
 EOF
-sed -i.bak "s/@user@/$user/g;"
+sed -i.bak "s/@user@/$user/g;" /$homedir/$user/.rtorrent.rc
 #----Fin du fichier configuration-------------
 #---------------------------------------------
 
@@ -454,7 +454,7 @@ a2enmod scgi
 
 #-----Fichier Configuration default-----------
 #---------------------------------------------
-cat <<'EOF' > chemain
+cat <<'EOF' > /$apachedir/sites-available/default
 <VirtualHost *:80>
         ServerAdmin webmaster@localhost
  
@@ -563,13 +563,13 @@ cat <<'EOF' > chemain
 </VirtualHost>
 </IfModule>
 EOF
-sed -i.bak "s/@ip@/$ip/g;"
+sed -i.bak "s/@ip@/$ip/g;" /$apachedir/sites-available/default
 #----Fin du fichier configuration-------------
 #---------------------------------------------
 
 #-----Fichier Configuration rtorrent deamon---
 #---------------------------------------------
-cat <<'EOF' > chemain
+cat <<'EOF' > /$initd/rtorrent
 ### BEGIN INIT INFO
 # Provides: chillispot et freeradius dans le chroot
 # Required-Start: \$local_fs \$network
@@ -631,7 +631,7 @@ case $1 in
         ;;
 esac
 EOF
-sed -i.bak "s/@user@/$user/g;"
+sed -i.bak "s/@user@/$user/g;" /$initd/rtorrent
 #----Fin du fichier configuration-------------
 #---------------------------------------------
 
