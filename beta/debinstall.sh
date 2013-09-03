@@ -572,17 +572,17 @@ sed -i.bak "s/@ip@/$ip/g;" /$apachedir/sites-available/default
 #-----Fichier Configuration rtorrent deamon---
 #---------------------------------------------
 cat <<'EOF' > /$initd/rtorrent
+#!/bin/sh
+
 ### BEGIN INIT INFO
-# Provides: chillispot et freeradius dans le chroot
-# Required-Start: \$local_fs \$network
-# Required-Stop: \$local_fs \$remote_fs
+# Provides: vpnagentd_init
+# Required-Start: $remote_fs $syslog
+# Required-Stop: $remote_fs $syslog
 # Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
-# Short-Description: Wireless & LAN Access Point Controller
-# Description: ChilliSpot is an open source captive portal
-# or wireless LAN access point controller.
+# Short-Description: Start Cisco vpn agent daemon at boot time
+# Description: Cisco vpn agent daemon (believe installed by company ssl client)
 ### END INIT INFO
-#!/bin/sh -e
 # Start/Stop rtorrent sous forme de daemon.
 
 NAME=rtorrent
