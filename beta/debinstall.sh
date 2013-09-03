@@ -633,6 +633,7 @@ case $1 in
         ;;
 esac
 EOF
+
 sed -i.bak "s/@user@/$user/g;" /$initd/rtorrent
 #----Fin du fichier configuration-------------
 #---------------------------------------------
