@@ -427,6 +427,7 @@ echo "
 ServerSignature Off
 ServerTokens Prod" >> $apachedir/apache2.conf
 sed -i.bak "s/Timeout 300/Timeout 30/g;" /$apachedir/apache2.conf
+echo "NameVirtualHost *:443" >> /etc/apache2/ports.conf
 
 # Installation du mode SGCI d'Apache (obligatoire pour rtorrent et rutorrent)
 echo SCGIMount /RPC2 127.0.0.1:5000 >> $apachedir/apache2.conf
@@ -553,7 +554,7 @@ cat <<'EOF' > /$apachedir/sites-available/default
     <Location /rutorrent>
         AuthType Digest
         AuthName "rutorrent"
-        AuthDigestDomain /var/www/rutorrent/ http://<servername or IP>/rutorrent
+        AuthDigestDomain /var/www/rutorrent/ http://@ip@/rutorrent
  
         AuthDigestProvider file
         AuthUserFile /etc/apache2/htpasswd
@@ -590,7 +591,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 case $1 in
         start)
                 echo "Starting rtorrent... "
-                su -l @USER@ -c "screen -fn -dmS rtd nice -19 rtorrent"
+                su -l @user@ -c "screen -fn -dmS rtd nice -19 rtorrent"
                 echo "Terminated"
         ;;
         stop)
@@ -613,14 +614,14 @@ case $1 in
                         echo "Shutting down rtorrent... "
                         killall -r "^.*rtorrent$"
                         echo "Starting rtorrent... "
-                        su -l @USER@ -c "screen -fn -dmS rtd nice -19 rtorrent"
+                        su -l @user@ -c "screen -fn -dmS rtd nice -19 rtorrent"
                         echo "Terminated"
                 }
                 else
                 {
                         echo "rtorrent not yet started !"
                         echo "Starting rtorrent... "
-                        su -l @USER@ -c "screen -fn -dmS rtd nice -19 rtorrent"
+                        su -l @user@ -c "screen -fn -dmS rtd nice -19 rtorrent"
                         echo "Terminated"
                 }
                 fi
