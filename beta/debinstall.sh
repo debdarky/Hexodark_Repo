@@ -29,6 +29,7 @@ else
         packetg="apt-get"
 fi
 
+
 ip=$(ip addr | grep eth0 | grep inet | awk '{print $2}' | cut -d/ -f1)
 
 if [ -z $homedir ]
