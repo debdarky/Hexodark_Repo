@@ -30,7 +30,27 @@ else
 fi
 
 
-ip=$(ip addr | grep eth0 | grep inet | awk '{print $2}' | cut -d/ -f1)
+# ip
+ip1=$(ip route get 10.10.10.10 | awk '/src/{sub("/.*","",$NF); print $NF}')
+  
+echo Ton ip est : $ip1 Remplacer ou garder la valeur par défaut
+name="$ip1"
+while :
+do
+  read -e -i "$name" -p "enter your IP: " ip
+  name="${input:-$name}"
+   echo
+  
+  
+  if [[ $ip =~ ^((2([0-4][0-9]|5[0-5])|[0-1]{0,1}[0-9]{1,2})\.){3}(2([0-4][0-9]|5[0-5])|[0-1]{0,1}[0-9]{1,2})$ ]]; then
+    echo "ton IP est valide"
+    break
+  else
+  echo  "ton ip n'est pas valide"
+     
+  
+  fi
+done
 
 if [ -z $homedir ]
 then
