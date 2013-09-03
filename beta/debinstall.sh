@@ -288,7 +288,7 @@ enabled = no
 [fileshare]
 enabled = no
 [fileupload]
-enabled = no
+enabled = yes
 [history]
 enabled = no
 [instantsearch]
@@ -300,9 +300,9 @@ enabled = no
 [loginmgr]
 enabled = no
 [mediainfo]
-enabled = no
+enabled = yes
 [mediastream]
-enabled = no
+enabled = yes
 [check_port]
 enabled = no
 [retrackers]
